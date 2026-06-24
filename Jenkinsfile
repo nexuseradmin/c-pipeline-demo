@@ -14,6 +14,18 @@ pipeline {
             }
         }
 
+        stage('Get Git Tag') {
+        steps {
+            script {
+                env.TAG_NAME = sh(
+                    script: 'git describe --tags --exact-match HEAD || echo "No Tag"',
+                    returnStdout: true
+                ).trim()
+
+                echo "Git Tag: ${env.TAG_NAME}"
+            }
+        }
+
         stage('Build') {
             steps {
 
