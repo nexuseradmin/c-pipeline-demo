@@ -104,7 +104,7 @@ Tag : ${TAG_NAME}
 
         failure {
 
-            mail to: 'yourmail@gmail.com',
+            mail to: 'ajithvignesh0nex@gmail.com',
                  subject: "FAILED : ${JOB_NAME} #${BUILD_NUMBER}",
                  body: """
 Pipeline Failed
