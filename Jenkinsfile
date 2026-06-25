@@ -15,14 +15,15 @@ pipeline {
         }
 
         stage('Get Git Tag') {
-        steps {
-            script {
-                env.TAG_NAME = sh(
-                    script: 'git describe --tags --exact-match HEAD || echo "No Tag"',
-                    returnStdout: true
-                ).trim()
+            steps {
+                script {
+                    env.TAG_NAME = sh(
+                        script: 'git describe --tags --exact-match HEAD || echo "No Tag"',
+                        returnStdout: true
+                    ).trim()
 
-                echo "Git Tag: ${env.TAG_NAME}"
+                    echo "Git Tag: ${env.TAG_NAME}"
+                }
             }
         }
 
@@ -42,7 +43,6 @@ pipeline {
         }
 
         stage('Unit Test') {
-
             steps {
 
                 sh '''
@@ -51,11 +51,9 @@ pipeline {
                 '''
 
             }
-
         }
 
         stage('Package') {
-
             steps {
 
                 sh '''
@@ -67,17 +65,12 @@ pipeline {
                 '''
 
             }
-
         }
 
         stage('Archive') {
-
             steps {
-
                 archiveArtifacts artifacts: '*.tar.gz'
-
             }
-
         }
 
     }
@@ -86,7 +79,7 @@ pipeline {
 
         success {
 
-            mail to: 'yourmail@gmail.com',
+            mail to: 'ajithvignesh0nex@gmail.com',
                  subject: "SUCCESS : ${JOB_NAME} #${BUILD_NUMBER}",
                  body: """
 Pipeline Completed Successfully
@@ -97,7 +90,7 @@ Build Number : ${BUILD_NUMBER}
 
 Status : SUCCESS
 
-Tag : ${TAG_NAME}
+Git Tag : ${TAG_NAME}
 """
 
         }
@@ -114,6 +107,8 @@ Project : ${JOB_NAME}
 Build Number : ${BUILD_NUMBER}
 
 Status : FAILED
+
+Git Tag : ${TAG_NAME}
 """
 
         }
