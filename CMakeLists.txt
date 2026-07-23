@@ -9,3 +9,4 @@ add_executable(c_pipeline src/main.c)
 enable_testing()
 
 add_test(NAME RunApplication COMMAND c_pipeline)
+enable_testing()
